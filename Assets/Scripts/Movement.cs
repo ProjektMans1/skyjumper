@@ -12,10 +12,14 @@ public class Movement : MonoBehaviour
     public Transform feetPos;
     public float checkRadius;
     public LayerMask Ground;
+    public bool doubleJump;
+
+    public float jumpStartTime;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
     // Update is called once per frame
@@ -26,12 +30,39 @@ public class Movement : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
+        //Poruszanie w poziomie
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, Ground);
-        if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
+        if (isGrounded)
         {
-            rb.velocity = Vector2.up * jumpForce;
+            doubleJump = false;
+            
         }
+
+        //skakanie
+        if (isGrounded == true && Input.GetKeyUp(KeyCode.Space))
+        {
+            rb.velocity = Vector2.up * jumpForce * jumpStartTime;
+            jumpStartTime = 0;
+        }
+        //przytrzymanie spacji zwiêksza jumpforce'a
+        if (isGrounded == true && Input.GetKey(KeyCode.Space))
+        {
+            jumpStartTime += Time.deltaTime;
+        }
+        
+
+        //podwójny skok - mo¿e siê przyda
+        /*if (!isGrounded && !doubleJump && Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+            doubleJump = true;
+        }*/
+    }
+
+    void Jump()
+    {
+        rb.velocity = Vector2.up * jumpForce;
     }
 
 }
