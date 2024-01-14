@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
     public LayerMask Ground;
     public bool doubleJump;
 
+    public bool canMove = true;
     public float jumpStartTime;
 
     void Start()
@@ -25,14 +26,20 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        //Poruszanie w poziomie
+        if(canMove)
+        {
+            moveInput = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        }
+       
     }
 
     void Update()
     {   
-        //Poruszanie w poziomie
+        
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, Ground);
+        //if do sprzawdzenia doubleJump'a
         if (isGrounded)
         {
             doubleJump = false;
@@ -42,6 +49,7 @@ public class Movement : MonoBehaviour
         //skakanie
         if (isGrounded == true && Input.GetKeyUp(KeyCode.Space))
         {
+            canMove = true;
             rb.velocity = Vector2.up * jumpForce * jumpStartTime;
             jumpStartTime = 0;
         }
@@ -49,6 +57,7 @@ public class Movement : MonoBehaviour
         if (isGrounded == true && Input.GetKey(KeyCode.Space))
         {
             jumpStartTime += Time.deltaTime;
+            canMove = false;
         }
         
 
