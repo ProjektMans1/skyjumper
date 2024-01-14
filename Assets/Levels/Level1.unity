@@ -599,7 +599,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   doubleJump: 0
+  canMove: 1
   jumpStartTime: 0
+  animator: {fileID: 1965755091}
 --- !u!58 &1442396876
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -787,6 +789,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1442396876}
   m_SourcePrefab: {fileID: 100100000, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
+--- !u!95 &1965755091 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95898481864777010, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
+  m_PrefabInstance: {fileID: 1965755090}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2080730378
 GameObject:
   m_ObjectHideFlags: 0
