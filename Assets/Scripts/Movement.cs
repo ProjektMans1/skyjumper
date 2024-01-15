@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,27 +30,42 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //Poruszanie w poziomie
-        if(canMove)
+        //Poruszanie w poziomie canMove - sprawdza czy bedzie skakal
+        if (canMove)
         {
             moveInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+
+            
         }
-       
+
     }
 
     void Update()
     {
+        
+
+        //Zmienne do animatora
         animator.SetBool("holdSpace", holdSpace);
         animator.SetBool("grounded", isGrounded);
+        animator.SetFloat("speed", Mathf.Abs(rb.velocity.y));
 
+
+        //sprawdzenie czy dotyka ziemii
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, Ground);
+
         //if do sprzawdzenia doubleJump'a
         if (isGrounded)
         {
             doubleJump = false;
         }
 
+        Jump();
+
+    }
+
+    void Jump()
+    {
         //skakanie
         if (isGrounded == true && Input.GetKeyUp(KeyCode.Space))
         {
@@ -65,9 +81,6 @@ public class Movement : MonoBehaviour
             jumpStartTime += Time.deltaTime;
             canMove = false;
         }
-        
-
-
 
         //podwójny skok - mo¿e siê przyda
         /*if (!isGrounded && !doubleJump && Input.GetKeyDown(KeyCode.Space))
@@ -75,11 +88,6 @@ public class Movement : MonoBehaviour
             Jump();
             doubleJump = true;
         }*/
-    }
-
-    void Jump()
-    {
-        rb.velocity = Vector2.up * jumpForce;
     }
 
 }
