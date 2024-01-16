@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+
     }
 
     // Update is called once per frame
@@ -35,21 +38,20 @@ public class Movement : MonoBehaviour
         {
             moveInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
-
-            
+            Debug.Log(moveInput);
         }
 
     }
 
     void Update()
     {
-        
 
         //Zmienne do animatora
         animator.SetBool("holdSpace", holdSpace);
         animator.SetBool("grounded", isGrounded);
-        animator.SetFloat("speed", Mathf.Abs(rb.velocity.y));
+        animator.SetFloat("walking", moveInput);
 
+        
 
         //sprawdzenie czy dotyka ziemii
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, Ground);
@@ -60,9 +62,12 @@ public class Movement : MonoBehaviour
             doubleJump = false;
         }
 
+
+
         Jump();
 
     }
+
 
     void Jump()
     {
