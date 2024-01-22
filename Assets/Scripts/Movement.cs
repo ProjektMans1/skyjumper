@@ -1,23 +1,27 @@
-using JetBrains.Annotations;
+ï»¿using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public LayerMask Ground;
+    public Transform feetPos;
     private Rigidbody2D rb;
-    public float speed;
-    public float jumpForce;
+
+    public float speed = 2f;
     private float moveInput;
     private bool isGrounded;
-    public Transform feetPos;
-    public float checkRadius;
-    public LayerMask Ground;
-    public bool doubleJump;
+    public float jumpStartTime = 1f;
+    public float jumpForce = 5f;
+    private bool canMove = true;
 
-    public bool canMove = true;
-    public float jumpStartTime;
+    public float checkRadius;
+
+
+
     private bool holdSpace;
 
     public Animator animator;
@@ -31,14 +35,12 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        //Poruszanie w poziomie canMove - sprawdza czy bedzie skakal
         if (canMove)
         {
             moveInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
-            Debug.Log(moveInput);
         }
 
     }
@@ -51,20 +53,12 @@ public class Movement : MonoBehaviour
         animator.SetBool("grounded", isGrounded);
         animator.SetFloat("walking", moveInput);
 
-        
-
         //sprawdzenie czy dotyka ziemii
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, Ground);
 
-        //if do sprzawdzenia doubleJump'a
-        if (isGrounded)
-        {
-            doubleJump = false;
-        }
-
-
-
         Jump();
+
+
 
     }
 
@@ -74,25 +68,20 @@ public class Movement : MonoBehaviour
         //skakanie
         if (isGrounded == true && Input.GetKeyUp(KeyCode.Space))
         {
-            canMove = true;
             rb.velocity = Vector2.up * jumpForce * jumpStartTime;
             jumpStartTime = 0;
             holdSpace = false;
+            canMove = true;
         }
-        //przytrzymanie spacji zwiêksza jumpforce'a
+        //przytrzymanie spacji zwiÃªksza jumpforce'a
         if (isGrounded == true && Input.GetKey(KeyCode.Space))
         {
-            holdSpace = true;
-            jumpStartTime += Time.deltaTime;
             canMove = false;
+            holdSpace = true;
+            jumpStartTime += Time.deltaTime * 1.3f;
         }
 
-        //podwójny skok - mo¿e siê przyda
-        /*if (!isGrounded && !doubleJump && Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-            doubleJump = true;
-        }*/
-    }
 
+    }
 }
+
