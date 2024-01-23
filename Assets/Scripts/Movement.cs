@@ -35,7 +35,7 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void FixedUpdate()
+   private void FixedUpdate()
     {
         if (canMove)
         {
@@ -43,7 +43,7 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
         }
 
-    }
+    } 
 
     void Update()
     {
