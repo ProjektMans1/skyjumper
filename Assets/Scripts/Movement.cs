@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ public class Movement : MonoBehaviour
     private bool holdSpace;
 
     public Animator animator;
+    public bool isDie = false;
 
     void Start()
     {
@@ -52,6 +54,7 @@ public class Movement : MonoBehaviour
         animator.SetBool("holdSpace", holdSpace);
         animator.SetBool("grounded", isGrounded);
         animator.SetFloat("walking", moveInput);
+        animator.SetBool("die", isDie);
 
         //sprawdzenie czy dotyka ziemii
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, Ground);
@@ -62,26 +65,53 @@ public class Movement : MonoBehaviour
 
     }
 
-
+    float countTimeSpace = 1;
+    private float keyTimer = 0;
     void Jump()
     {
         //skakanie
         if (isGrounded == true && Input.GetKeyUp(KeyCode.Space))
         {
-            rb.velocity = Vector2.up * jumpForce * jumpStartTime;
-            jumpStartTime = 0;
-            holdSpace = false;
-            canMove = true;
+            JustJump(); 
         }
+
+       
+        if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
+        {
+            keyTimer = Time.time;
+        }
+
         //przytrzymanie spacji zwiêksza jumpforce'a
         if (isGrounded == true && Input.GetKey(KeyCode.Space))
         {
             canMove = false;
             holdSpace = true;
-            jumpStartTime += Time.deltaTime * 1.3f;
+            countTimeSpace = Time.deltaTime + 1;
+
+            
+            Debug.Log(Time.time - keyTimer);
+
+            if (Time.time - keyTimer >= 3)
+            {
+                
+            }
+            else
+            {
+                jumpStartTime += Time.deltaTime * 1.3f;
+            }
+
+
         }
 
-
     }
+    void JustJump()
+    {
+        rb.velocity = Vector2.up * jumpForce * jumpStartTime;
+        jumpStartTime = 0;
+        holdSpace = false;
+        canMove = true;
+        countTimeSpace = 0;
+    }
+ 
 }
 

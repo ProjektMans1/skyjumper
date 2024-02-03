@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class enemyControl : MonoBehaviour
 {
+    public GameObject player;
+    public Transform respawnPoint;
+
     public GameObject pointA;
     public GameObject pointB;
     private Rigidbody2D rb;
@@ -50,6 +53,14 @@ public class enemyControl : MonoBehaviour
         facingRight = !facingRight;
         transform.Rotate(0, 180, 0);
     }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+           
+            player.transform.position = respawnPoint.position;
+            
+        }
+    }
 
-  
 }
