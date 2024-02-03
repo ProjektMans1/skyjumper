@@ -27,7 +27,7 @@ public class NPCInteract : MonoBehaviour
             image.enabled = true;
             
         }
-        
+  
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
