@@ -2198,6 +2198,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3870748326076863347, guid: 40c460eea29227a458caabe3a6509c97, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1729239638}
+    - targetCorrespondingSourceObject: {fileID: 3870748326076863347, guid: 40c460eea29227a458caabe3a6509c97, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1729239640}
   m_SourcePrefab: {fileID: 100100000, guid: 40c460eea29227a458caabe3a6509c97, type: 3}
 --- !u!1 &1357571865
 GameObject:
@@ -2353,7 +2356,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7ead8aef5a07a464fbffd9b609b0bcda, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2381,7 +2384,7 @@ MonoBehaviour:
     m_Bits: 256
   feetPos: {fileID: 332179165}
   speed: 5
-  jumpStartTime: 0
+  jumpStartTime: 1
   jumpForce: 2
   checkRadius: 0.3
   animator: {fileID: 1965755091}
@@ -2570,6 +2573,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.27, y: 1.37}
   m_EdgeRadius: 0
+--- !u!114 &1729239640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729239630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1aac8a1d4380444d9d8edfa3809ffd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  see: 0
+  dialogue: {fileID: 35976880}
+  image: {fileID: 712882559}
 --- !u!1 &1729730540
 GameObject:
   m_ObjectHideFlags: 0
@@ -2850,9 +2868,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1290715225530138, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1965755093}
-    - targetCorrespondingSourceObject: {fileID: 1290715225530138, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1965755097}
   m_SourcePrefab: {fileID: 100100000, guid: 6877fb649746c674d8fbbcf60d41892b, type: 3}
 --- !u!95 &1965755091 stripped
 Animator:
@@ -2907,19 +2922,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_Size: {x: 0.75, y: 1.42}
   m_Direction: 0
---- !u!114 &1965755097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442396870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1aac8a1d4380444d9d8edfa3809ffd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  see: 0
 --- !u!1 &2080730378
 GameObject:
   m_ObjectHideFlags: 0
